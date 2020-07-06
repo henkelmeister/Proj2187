@@ -7,11 +7,12 @@ import java.util.Arrays;
 public class ArrayGame {
 
   // stores the next number to guess
-  private static int guess;
-  private int[] priorguesses;
+  private int guess;
+  private boolean[] priorguesses;
   private int numguess;
-  private int tail;
   private boolean isfound;
+  private boolean[] eliminated;
+
 
   /********************************************************
    * NOTE: you are allowed to add new methods if necessary, but DO NOT remove any
@@ -22,12 +23,11 @@ public class ArrayGame {
   // ArrayGame constructor method
   public ArrayGame() {
     // TODO: Implement the ArrayGame() constructor
-    guess = 0;
-    priorguesses = new int[1];
+    guess = 1000;
+    priorguesses = new boolean[9000];
     numguess = 0;
-    tail = 0;
+    eliminated = new boolean[9000];
     isfound = false;
-
   }
 
   /**
@@ -35,12 +35,11 @@ public class ArrayGame {
    */
   public void reset() {
     // TODO: Implement the reset() method
-    isfound = false;
-    priorguesses = new int[1];
+    guess = 1000;
+    priorguesses = new boolean[9000];
     numguess = 0;
-    tail = 0; 
-    isfound = false; 
-
+    eliminated = new boolean[9000];
+    isfound = false;
   }
 
   /**
@@ -48,14 +47,8 @@ public class ArrayGame {
    */
   public boolean isPriorGuess(int n) {
     // TODO: Implement the isPriorGuess() method
-    for (int i = 0; i < priorguesses.length; i++) {
-      if (n != priorguesses[i]) {
-        continue;
-      } else {
-        return true;
-      }
-    }
-    return false;
+    int index = n - 1000;
+    return this.priorguesses[index]; 
   }
 
   /**
@@ -81,9 +74,7 @@ public class ArrayGame {
     int[] aArray = new int[4];
     int[] bArray = new int[4];
     int numright = 0; 
-    guess = a; 
     
-
     aArray[0] = a % 10;
     aArray[1] = a / 10 % 10;
     aArray[2] = a / 100 % 10;
@@ -119,17 +110,12 @@ public class ArrayGame {
    */
   public int getGuess() {
     // TODO: Implement the getGuess() method   
-    
-    int[] temparr = new int[priorguesses.length + 1];
-      tail++;
-      for(int i=0; i < priorguesses.length;i++){
-        temparr[i] = priorguesses[i];
-      }
-      temparr[tail] = guess;
+  int index = this.guess - 1000; // Convert number to index
+  priorguesses[index] = true;
+  numguess++;
 
-      priorguesses = temparr; 
-      
-    return guess;
+  return guess;
+
   }
 
   /**
@@ -142,6 +128,26 @@ public class ArrayGame {
    */
   public boolean updateGuess(int nmatches) {
     // TODO: Implement the updateGuess() method
+    if(nmatches == 4){
+      isfound = true; 
+      return true; 
+    }
+    for(int i=0; i < 9000; i++){
+      if(eliminated[i]) {
+        continue;
+      } else {
+        if(numMatches(this.guess, i + 1000) != nmatches){
+          eliminated[i] = true;
+        }
+      }
+    }
+
+    for(int i=0; i<9000;i++){
+      if (eliminated[i] == false){
+        guess = i +1000;
+        return true; 
+      }
+    }
     return false;
   }
 
@@ -152,6 +158,19 @@ public class ArrayGame {
    */
   public int[] priorGuesses() {
     // TODO: Implement the priorGuesses() method
-    return priorguesses;
+  if (numguess == 0) {
+    return null;
+  }
+
+  int pointer = 0;
+  int[] priorGuessesList = new int[numguess];
+  for (int i = 0; i < this.priorguesses.length; i++) {
+    if(priorguesses[i]) {
+      priorGuessesList[pointer] = (i + 1000);
+      pointer++;
+    }
+  }
+
+return priorGuessesList;
   }
 }
