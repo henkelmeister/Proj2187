@@ -9,8 +9,8 @@ public class ArrayGame {
   // stores the next number to guess
   private int guess;
   private boolean[] priorguesses;
-  private int numguess;
-  private boolean isfound;
+  private int numGuesses;
+  private boolean isFound;
   private boolean[] eliminated;
 
 
@@ -25,9 +25,9 @@ public class ArrayGame {
     // TODO: Implement the ArrayGame() constructor
     guess = 1000;
     priorguesses = new boolean[9000];
-    numguess = 0;
+    numGuesses = 0;
     eliminated = new boolean[9000];
-    isfound = false;
+    isFound = false;
   }
 
   /**
@@ -37,9 +37,9 @@ public class ArrayGame {
     // TODO: Implement the reset() method
     guess = 1000;
     priorguesses = new boolean[9000];
-    numguess = 0;
+    numGuesses= 0;
     eliminated = new boolean[9000];
-    isfound = false;
+    isFound = false;
   }
 
   /**
@@ -48,7 +48,7 @@ public class ArrayGame {
   public boolean isPriorGuess(int n) {
     // TODO: Implement the isPriorGuess() method
     int index = n - 1000;
-    return this.priorguesses[index]; 
+    return priorguesses[index]; 
   }
 
   /**
@@ -56,7 +56,7 @@ public class ArrayGame {
    */
   public int numGuesses() {
     // TODO: Implement the numGuesses() method
-    return numguess;
+    return numGuesses;
   }
 
   /**
@@ -99,7 +99,7 @@ public class ArrayGame {
    */
   public boolean isOver() {
     // TODO: Implement the isOver() method
-    if(isfound){
+    if(isFound){
       return true; 
     }
     return false;
@@ -110,9 +110,9 @@ public class ArrayGame {
    */
   public int getGuess() {
     // TODO: Implement the getGuess() method   
-  int index = this.guess - 1000; // Convert number to index
+  int index = guess - 1000;
   priorguesses[index] = true;
-  numguess++;
+  numGuesses++;
 
   return guess;
 
@@ -129,14 +129,14 @@ public class ArrayGame {
   public boolean updateGuess(int nmatches) {
     // TODO: Implement the updateGuess() method
     if(nmatches == 4){
-      isfound = true; 
+      isFound = true; 
       return true; 
     }
     for(int i=0; i < 9000; i++){
       if(eliminated[i]) {
         continue;
       } else {
-        if(numMatches(this.guess, i + 1000) != nmatches){
+        if(numMatches(guess, i + 1000) != nmatches){
           eliminated[i] = true;
         }
       }
@@ -158,13 +158,12 @@ public class ArrayGame {
    */
   public int[] priorGuesses() {
     // TODO: Implement the priorGuesses() method
-  if (numguess == 0) {
+  if (numGuesses== 0) {
     return null;
   }
-
   int pointer = 0;
-  int[] priorGuessesList = new int[numguess];
-  for (int i = 0; i < this.priorguesses.length; i++) {
+  int[] priorGuessesList = new int[numGuesses];
+  for (int i = 0; i < 9000; i++) {
     if(priorguesses[i]) {
       priorGuessesList[pointer] = (i + 1000);
       pointer++;
