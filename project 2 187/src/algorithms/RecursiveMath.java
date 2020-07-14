@@ -14,9 +14,12 @@ public class RecursiveMath {
   public boolean isEven(int val) {
     // TODO: Implement the isEven method
     // Without recursion this could be: return val % 2 == 0;
-    if(val == 1)return false;
-    if(val == 0)return true;
-    return isEven(val - 2);
+    if(val < 0){
+      return isEven(val * -1); //changes odd input to even 
+    }
+    if(val == 0) return true;
+    if(val == 1) return false; 
+    return isEven(val - 2); 
   }
 
   /**
@@ -30,28 +33,12 @@ public class RecursiveMath {
   public boolean isOdd(int val) {
     // TODO: Implement the isOdd method
     // Without recursion this could be: return val % 2 == 1;
-    if(val >= 0){
-
-      if(val == 1 || val == - 1)
-        return true; //add the or statement if val is = to 0
-      else if(val == 2 || val == -2)
-        return false; 
-
-      isOdd(val - 2);
-    }
-
     if(val < 0){
-
-      if(val == -1)
-        return true;
-      else if(val == -2)
-        return false;
-
-      isOdd(val + 2); 
-
+      return isOdd(val * -1); //changes odd input to even 
     }
-
-
+    if(val == 0) return false;
+    if(val == 1) return true; 
+    return isOdd(val - 2); 
   }
 
   /**
