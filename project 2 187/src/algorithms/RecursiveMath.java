@@ -66,7 +66,7 @@ public class RecursiveMath {
    * @return the multiplication of all values between 1 and n.
    * @throws IllegalArgumentException if n is less than 0.
    */
-  public int factorial(int n) {
+  public int factorial(int n) throws IllegalArgumentException{
     // TODO: Implement the factorial method
     if(n < 0) throw new IllegalArgumentException();
   
@@ -84,7 +84,7 @@ public class RecursiveMath {
    * @return 2 to the nth power.
    * @throws IllegalArgumentException if n is less than 0.
    */
-  public int biPower(int n) {
+  public int biPower(int n) throws IllegalArgumentException {
     // TODO: Implement the biPower method
     if(n < 0) throw new IllegalArgumentException();
 
