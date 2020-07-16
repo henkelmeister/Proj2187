@@ -51,7 +51,7 @@ public class ListImplementation<T> implements ListInterface<T> {
         tail = tail.getNext();
         size++;
     }
-    return null;
+    return this;
   }
 
   /** Gets the {@code n}th element from this list. */
@@ -67,7 +67,7 @@ public class ListImplementation<T> implements ListInterface<T> {
       }
     }
 
-    return null;
+    return newHead.getData();
   }
 
   /**
